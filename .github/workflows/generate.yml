@@ -1,0 +1,34 @@
+name: Generate
+
+defaults:
+  run:
+    shell: bash -eo pipefail {0}
+
+on: [push]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Generate
+        run: |
+          set -x
+          dart pub get
+          ./run_pigeon.sh
+
+      - name: Validate files not changed
+        run: |
+          changed=$(git status -s 2>&1 | wc -l)
+          if [[ $changed -ne 0 ]]; then
+            echo "Changed files detected after build:"
+            git status -s
+            exit 1
+          fi
