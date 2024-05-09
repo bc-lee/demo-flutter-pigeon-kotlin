@@ -67,7 +67,7 @@ data class Size (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class Setttings (
+data class Settings (
   val foo: Boolean,
   val bar: Size,
   val baz: Size? = null
@@ -75,11 +75,11 @@ data class Setttings (
 ) {
   companion object {
     @Suppress("LocalVariableName")
-    fun fromList(__pigeon_list: List<Any?>): Setttings {
+    fun fromList(__pigeon_list: List<Any?>): Settings {
       val foo = __pigeon_list[0] as Boolean
       val bar = __pigeon_list[1] as Size
       val baz = __pigeon_list[2] as Size?
-      return Setttings(foo, bar, baz)
+      return Settings(foo, bar, baz)
     }
   }
   fun toList(): List<Any?> {
@@ -95,7 +95,7 @@ private object FooBarBazCodec : StandardMessageCodec() {
     return when (type) {
       128.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          Setttings.fromList(it)
+          Settings.fromList(it)
         }
       }
       129.toByte() -> {
@@ -113,7 +113,7 @@ private object FooBarBazCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is Setttings -> {
+      is Settings -> {
         stream.write(128)
         writeValue(stream, value.toList())
       }
@@ -132,7 +132,7 @@ private object FooBarBazCodec : StandardMessageCodec() {
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface FooBarBaz {
-  fun fooBarBaz(setttings: Setttings)
+  fun fooBarBaz(Settings: Settings)
 
   companion object {
     /** The codec used by FooBarBaz. */
@@ -147,9 +147,9 @@ interface FooBarBaz {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val setttingsArg = args[0] as Setttings
+            val SettingsArg = args[0] as Settings
             val wrapped: List<Any?> = try {
-              api.fooBarBaz(setttingsArg)
+              api.fooBarBaz(SettingsArg)
               listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapError(exception)

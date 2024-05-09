@@ -41,8 +41,8 @@ class Size {
   }
 }
 
-class Setttings {
-  Setttings({
+class Settings {
+  Settings({
     required this.foo,
     required this.bar,
     this.baz,
@@ -62,9 +62,9 @@ class Setttings {
     ];
   }
 
-  static Setttings decode(Object result) {
+  static Settings decode(Object result) {
     result as List<Object?>;
-    return Setttings(
+    return Settings(
       foo: result[0]! as bool,
       bar: result[1]! as Size,
       baz: result[2] as Size?,
@@ -76,7 +76,7 @@ class _FooBarBazCodec extends StandardMessageCodec {
   const _FooBarBazCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is Setttings) {
+    if (value is Settings) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
     } else if (value is Size) {
@@ -94,7 +94,7 @@ class _FooBarBazCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128: 
-        return Setttings.decode(readValue(buffer)!);
+        return Settings.decode(readValue(buffer)!);
       case 129: 
         return Size.decode(readValue(buffer)!);
       case 130: 
@@ -118,7 +118,7 @@ class FooBarBaz {
 
   final String __pigeon_messageChannelSuffix;
 
-  Future<void> fooBarBaz(Setttings setttings) async {
+  Future<void> fooBarBaz(Settings Settings) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.hello.FooBarBaz.fooBarBaz$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -126,7 +126,7 @@ class FooBarBaz {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[setttings]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[Settings]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

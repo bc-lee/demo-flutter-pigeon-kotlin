@@ -10,12 +10,12 @@ class Size {
   });
 }
 
-class Setttings {
+class Settings {
   final bool foo;
   final Size bar;
   final Size? baz;
 
-  Setttings({
+  Settings({
     required this.foo,
     required this.bar,
     this.baz,
@@ -24,5 +24,5 @@ class Setttings {
 
 @HostApi()
 abstract class FooBarBaz {
-  void fooBarBaz(Setttings setttings);
+  void fooBarBaz(Settings Settings);
 }
